@@ -23,11 +23,11 @@
 .newTask button[type='submit'] {
     display: flex;
     gap: 0.5rem;
-    
+
     padding: 1rem;
     border: 0;
     border-radius: 8px;
-    color: var(--gray-100);
+    color: var(--gray-100);          
     background-color: var(--blue-dark);
     font-weight: 700;
     cursor: pointer;

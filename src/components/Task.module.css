@@ -1,0 +1,13 @@
+.taskList {
+    margin-top: 4rem;
+}
+
+.taskList header, 
+.taskListHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskListHeader {
+    gap: 0.5rem;
+}
