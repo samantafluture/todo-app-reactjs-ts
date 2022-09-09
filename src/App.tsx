@@ -1,8 +1,12 @@
-import './global.css'
+import styles from './App.module.css';
+import { Header } from './components/Header';
+import './global.css';
 
 export function App() {
-
-  return (
-    <h1>To Do App</h1>
-  )
+	return (
+		<>
+			<Header />
+			<div className={styles.wrapper}></div>
+		</>
+	);
 }
