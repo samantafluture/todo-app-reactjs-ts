@@ -8,11 +8,17 @@ import styles from './TasksList.module.css';
 export function TasksList() {
 	const [tasks, setTasks] = useState(['Buy cat food']);
 	const [newTask, setNewTask] = useState('');
+	const [taskCount, setTaskCount] = useState(1);
+
+	const isNewTaskInvalid = newTask.length == 0;
 
 	function handleCreateNewTask(event: FormEvent) {
 		event.preventDefault();
 		setTasks([...tasks, newTask]);
 		setNewTask('');
+        setTaskCount((taskCount) => {
+			return taskCount + 1;
+		});
 	}
 
 	function handleNewCommentTask(event: ChangeEvent<HTMLInputElement>) {
@@ -29,9 +35,10 @@ export function TasksList() {
 			return task != taskToDelete;
 		});
 		setTasks(tasksWithoutDeletedOne);
+        setTaskCount((taskCount) => {
+			return taskCount - 1;
+		});
 	}
-
-	const isNewTaskInvalid = newTask.length == 0;
 
 	return (
 		<main>
@@ -54,7 +61,7 @@ export function TasksList() {
 			<div className={styles.taskCounter}>
 				<div className={styles.counterInfo}>
 					<p>Created Tasks</p>
-					<span>5</span>
+					<span>{taskCount}</span>
 				</div>
 				<div className={styles.counterInfo}>
 					<p>Done</p>
@@ -64,7 +71,12 @@ export function TasksList() {
 
 			{tasks.map((task) => {
 				return (
-					<Task key={task} content={task} OnDeleteTask={deleteTask} isCompleted />
+					<Task
+						key={task}
+						content={task}
+						OnDeleteTask={deleteTask}
+						isCompleted
+					/>
 				);
 			})}
 		</main>
