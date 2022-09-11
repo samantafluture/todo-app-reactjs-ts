@@ -1,13 +1,42 @@
-.taskList {
-    margin-top: 4rem;
-}
+.task {
+    margin: 0.75rem 0;
+    padding: 1rem;
+    background-color: var(--gray-400);
 
-.taskList header, 
-.taskListHeader {
     display: flex;
+    gap: 0.75rem;
+    align-items: center;
     justify-content: space-between;
 }
 
-.taskListHeader {
-    gap: 0.5rem;
+.task input[type="checkbox"] {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid var(--blue);
+    outline: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+}
+
+.task input[type="checkbox"]:checked {
+    background-color: var(--purple-dark);
+    border: 2px solid var(--purple-dark);
+    position: relative;
+}
+
+.task input[type="checkbox"]:checked:after {
+    content: '\2714';
+	position: absolute;
+	top: 0px;
+    left: 2px;
+	color: var(--white);
+    font-size: 0.75rem;
+}
+
+.taskContent {
+    color: var(--gray-100);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    width: 100%;
 }

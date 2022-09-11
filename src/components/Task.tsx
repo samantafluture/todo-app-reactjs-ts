@@ -1,18 +1,14 @@
+import { Trash, Check } from 'phosphor-react';
+
 import styles from './Task.module.css';
 
 export function Task() {
 	return (
-		<div className={styles.taskList}>
-			<header>
-				<div className={styles.taskListHeader}>
-					<p>Tasks created</p>
-					<span>5</span>
-				</div>
-                <div className={styles.taskListHeader}>
-					<p>Done</p>
-					<span>2 of 5</span>
-				</div>
-			</header>
-		</div>
+			<div className={styles.task}>
+                <input type="checkbox" className={styles.taskCheckbox} />
+				<article className={styles.taskContent}>Task</article>
+                <Trash size={16} weight="bold" />
+			</div>
+            
 	);
 }

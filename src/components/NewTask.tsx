@@ -11,5 +11,6 @@ export function NewTask() {
                 <PlusCircle size={16}/>
             </button>
         </form>
+
 	);
 }
