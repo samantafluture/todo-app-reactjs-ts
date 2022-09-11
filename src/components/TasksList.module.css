@@ -43,3 +43,33 @@
     opacity: 0.7;
 	cursor: not-allowed;
 }
+
+.taskCounter {
+    margin: 4rem 0 1.5rem;
+}
+
+.taskCounter, 
+.counterInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.counterInfo {
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+.counterInfo > p {
+    color: var(--blue);
+}
+
+.counterInfo > span {
+    font-size: 0.75rem;
+    color: var(--gray-200);
+    background-color: var(--gray-400);
+    /* padding: 0.125rem 0.5rem; */
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
