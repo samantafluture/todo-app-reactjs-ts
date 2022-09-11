@@ -64,7 +64,7 @@ export function TasksList() {
 
 			{tasks.map((task) => {
 				return (
-					<Task key={task} content={task} OnDeleteTask={deleteTask} />
+					<Task key={task} content={task} OnDeleteTask={deleteTask} isCompleted />
 				);
 			})}
 		</main>
