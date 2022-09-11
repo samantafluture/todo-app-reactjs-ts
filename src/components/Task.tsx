@@ -3,12 +3,20 @@ import { Trash } from 'phosphor-react';
 import styles from './Task.module.css';
 
 export interface TaskProps {
-	id?: number;
 	content: string;
-	isCompleted: boolean;
+	isCompleted?: boolean;
+	OnDeleteTask: (task: string) => void;
 }
 
-export function Task({ isCompleted = false, content }: TaskProps) {
+export function Task({
+	isCompleted = false,
+	content,
+	OnDeleteTask,
+}: TaskProps) {
+	function handleDeleteTask() {
+		OnDeleteTask(content);
+	}
+
 	return (
 		<div className={styles.task}>
 			<input
@@ -17,7 +25,11 @@ export function Task({ isCompleted = false, content }: TaskProps) {
 				defaultChecked={isCompleted}
 			/>
 			<p className={styles.taskContent}>{content}</p>
-			<button title='Delete task' className={styles.deleteTask}>
+			<button
+				onClick={handleDeleteTask}
+				title='Delete task'
+				className={styles.deleteTask}
+			>
 				<Trash size={16} />
 			</button>
 		</div>
