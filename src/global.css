@@ -14,6 +14,7 @@
 
     --blue: #4EA8DE;
     --blue-dark: #1E6F9F;
+    --blue-dark-opacity: rgba(30,111,159, 0.2);
 
     --danger: #E25858;
 }
