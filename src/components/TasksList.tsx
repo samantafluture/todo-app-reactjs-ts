@@ -1,44 +1,45 @@
 import { PlusCircle } from 'phosphor-react';
-import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, Key, useState } from 'react';
 
 import { Task } from './Task';
 
 import styles from './TasksList.module.css';
 
 export function TasksList() {
-	const [tasks, setTasks] = useState(['Buy cat food']);
-	const [newTask, setNewTask] = useState('');
-	const [taskCount, setTaskCount] = useState(1);
+	const [tasks, setTasks] = useState([{
+		content: 'Buy cat food',
+		isComplete: false,
+	}]);
+	const [newTask, setNewTask] = useState({
+		content: '',
+		isComplete: false,
+	});
 
-	const isNewTaskInvalid = newTask.length == 0;
+	const isNewTaskInvalid = newTask.content.length == 0;
 
 	function handleCreateNewTask(event: FormEvent) {
 		event.preventDefault();
-		setTasks([...tasks, newTask]);
-		setNewTask('');
-        setTaskCount((taskCount) => {
-			return taskCount + 1;
-		});
+        setTasks([...tasks, newTask]);
+		setNewTask({ content: '', isComplete: false });
 	}
 
-	function handleNewCommentTask(event: ChangeEvent<HTMLInputElement>) {
+	function handleNewTask(event: ChangeEvent<HTMLInputElement>) {
 		event.target.setCustomValidity('');
-		setNewTask(event.target.value);
+		setNewTask({ content: event.target.value, isComplete: false });
 	}
 
 	function handleNewInvalidTask(event: InvalidEvent<HTMLInputElement>) {
 		event.target.setCustomValidity('This field is required!');
 	}
 
-	function deleteTask(taskToDelete: string) {
+	function deleteTask(taskToDelete: {}) {
 		const tasksWithoutDeletedOne = tasks.filter((task) => {
-			return task != taskToDelete;
+			return task.content != taskToDelete;
 		});
 		setTasks(tasksWithoutDeletedOne);
-        setTaskCount((taskCount) => {
-			return taskCount - 1;
-		});
 	}
+
+	console.log(tasks);
 
 	return (
 		<main>
@@ -47,8 +48,8 @@ export function TasksList() {
 					type='text'
 					placeholder='Add a new task'
 					name='task'
-					value={newTask}
-					onChange={handleNewCommentTask}
+                    value={newTask.content}
+					onChange={handleNewTask}
 					onInvalid={handleNewInvalidTask}
 					required
 				/>
@@ -61,21 +62,23 @@ export function TasksList() {
 			<div className={styles.taskCounter}>
 				<div className={styles.counterInfo}>
 					<p>Created Tasks</p>
-					<span>{taskCount}</span>
+					<span>{tasks.length}</span>
 				</div>
 				<div className={styles.counterInfo}>
 					<p>Done</p>
-					<span>2 of 5</span>
+					<span>
+						{tasks.length} of {tasks.length}
+					</span>
 				</div>
 			</div>
 
 			{tasks.map((task) => {
 				return (
 					<Task
-						key={task}
-						content={task}
+						key={task.content}
+						content={task.content}
 						OnDeleteTask={deleteTask}
-						isCompleted
+						isComplete
 					/>
 				);
 			})}

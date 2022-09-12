@@ -5,22 +5,22 @@ import styles from './Task.module.css';
 
 export interface TaskProps {
 	content: string;
-	isCompleted?: boolean;
+	isComplete?: boolean;
 	OnDeleteTask: (task: string) => void;
 }
 
-export function Task({ content, OnDeleteTask, isCompleted }: TaskProps) {
+export function Task({ content, OnDeleteTask, isComplete }: TaskProps) {
 	const [isChecked, setIsChecked] = useState(false);
 
-	function handleCheckboxValue() {
+	function handleCompleteTask() {
 		setIsChecked(!isChecked);
+		!isChecked ? isComplete = true : isComplete = false;
+		console.log(isComplete);
 	}
 
 	function handleDeleteTask() {
 		OnDeleteTask(content);
 	}
-
-	console.log(isCompleted, isChecked);
 
 	return (
 		<div className={styles.task}>
@@ -28,7 +28,7 @@ export function Task({ content, OnDeleteTask, isCompleted }: TaskProps) {
 				type='checkbox'
 				title='Check task'
 				defaultChecked={isChecked}
-				onChange={handleCheckboxValue}
+				onChange={handleCompleteTask}
 			/>
 			<p
 				className={
