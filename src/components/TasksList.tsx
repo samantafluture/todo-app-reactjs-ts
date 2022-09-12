@@ -1,5 +1,5 @@
 import { PlusCircle } from 'phosphor-react';
-import { ChangeEvent, FormEvent, InvalidEvent, Key, useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 import { Task } from './Task';
 
@@ -13,13 +13,14 @@ export function TasksList() {
 		},
 		{
 			content: 'Read React.js new documentation',
-			isComplete: true,
-		}
+			isComplete: false,
+		},
 	]);
 	const [newTask, setNewTask] = useState({
 		content: '',
 		isComplete: false,
 	});
+	const [completedTasksCount, setCompletedTasksCount] = useState(0);
 
 	const isNewTaskInvalid = newTask.content.length == 0;
 
@@ -38,14 +39,12 @@ export function TasksList() {
 		event.target.setCustomValidity('This field is required!');
 	}
 
-	function deleteTask(taskToDelete: {}) {
+	function deleteTask(taskToDelete: string) {
 		const tasksWithoutDeletedOne = tasks.filter((task) => {
 			return task.content != taskToDelete;
 		});
 		setTasks(tasksWithoutDeletedOne);
 	}
-
-	console.log(tasks);
 
 	return (
 		<main>
@@ -73,7 +72,7 @@ export function TasksList() {
 				<div className={styles.counterInfo}>
 					<p>Done</p>
 					<span>
-						{tasks.length} of {tasks.length}
+						{completedTasksCount} of {tasks.length}
 					</span>
 				</div>
 			</div>
@@ -85,6 +84,7 @@ export function TasksList() {
 						content={task.content}
 						OnDeleteTask={deleteTask}
 						isComplete={task.isComplete}
+						setCompletedTasksCount={setCompletedTasksCount}
 					/>
 				);
 			})}

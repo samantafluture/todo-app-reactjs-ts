@@ -1,4 +1,11 @@
-import { useState } from 'react';
+import {
+	ChangeEvent,
+	Dispatch,
+	FormEvent,
+	SetStateAction,
+	useEffect,
+	useState,
+} from 'react';
 import { Trash } from 'phosphor-react';
 
 import styles from './Task.module.css';
@@ -7,12 +14,18 @@ export interface TaskProps {
 	content: string;
 	isComplete: boolean;
 	OnDeleteTask: (task: string) => void;
+	setCompletedTasksCount: Dispatch<SetStateAction<number>>;
 }
 
-export function Task({ content, OnDeleteTask, isComplete }: TaskProps) {
+export function Task({
+	content,
+	OnDeleteTask,
+	isComplete,
+	setCompletedTasksCount,
+}: TaskProps) {
 	const [isChecked, setIsChecked] = useState(isComplete);
 
-	function handleCompleteTask() {
+	function handleCheckTask() {
 		setIsChecked(!isChecked);
 	}
 
@@ -20,13 +33,28 @@ export function Task({ content, OnDeleteTask, isComplete }: TaskProps) {
 		OnDeleteTask(content);
 	}
 
+	useEffect(() => {
+		if (!isChecked) {
+			setCompletedTasksCount((prevCount) => {
+				if (prevCount !== 0) {
+					return prevCount - 1;
+				}
+
+				return prevCount;
+			});
+		}
+		if (isChecked) {
+			setCompletedTasksCount((prevCount) => prevCount + 1);
+		}
+	}, [isChecked, setCompletedTasksCount]);
+
 	return (
 		<div className={styles.task}>
 			<input
 				type='checkbox'
 				title='Check task'
-				defaultChecked={isComplete}
-				onChange={handleCompleteTask}
+				defaultChecked={isChecked}
+				onChange={handleCheckTask}
 			/>
 			<p
 				className={
