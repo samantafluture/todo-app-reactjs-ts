@@ -1,4 +1,4 @@
-import { PlusCircle } from 'phosphor-react';
+import { PlusCircle, ClipboardText  } from 'phosphor-react';
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 import { Task } from './Task';
@@ -77,17 +77,27 @@ export function TasksList() {
 				</div>
 			</div>
 
-			{tasks.map((task) => {
-				return (
-					<Task
-						key={task.content}
-						content={task.content}
-						OnDeleteTask={deleteTask}
-						isComplete={task.isComplete}
-						setCompletedTasksCount={setCompletedTasksCount}
-					/>
-				);
-			})}
+			{
+				tasks.length > 0 
+				? 
+					tasks.map((task) => {
+						return (
+							<Task
+								key={task.content}
+								content={task.content}
+								OnDeleteTask={deleteTask}
+								isComplete={task.isComplete}
+								setCompletedTasksCount={setCompletedTasksCount}
+							/>
+						);
+					})
+				:
+					<div className={styles.noTasks}>
+						<ClipboardText size={56} weight="thin" />
+						<p>You don't have any task yet</p>
+						<p>Create tasks and organize your to do list</p>
+					</div>
+			}
 		</main>
 	);
 }
