@@ -13,7 +13,7 @@ export function TasksList() {
 		},
 		{
 			content: 'Read React.js new documentation',
-			isComplete: false,
+			isComplete: true,
 		},
 	]);
 	const [newTask, setNewTask] = useState({
