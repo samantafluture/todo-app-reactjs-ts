@@ -6,10 +6,16 @@ import { Task } from './Task';
 import styles from './TasksList.module.css';
 
 export function TasksList() {
-	const [tasks, setTasks] = useState([{
-		content: 'Buy cat food',
-		isComplete: false,
-	}]);
+	const [tasks, setTasks] = useState([
+		{
+			content: 'Buy cat food',
+			isComplete: false,
+		},
+		{
+			content: 'Read React.js new documentation',
+			isComplete: true,
+		}
+	]);
 	const [newTask, setNewTask] = useState({
 		content: '',
 		isComplete: false,
@@ -19,7 +25,7 @@ export function TasksList() {
 
 	function handleCreateNewTask(event: FormEvent) {
 		event.preventDefault();
-        setTasks([...tasks, newTask]);
+		setTasks([...tasks, newTask]);
 		setNewTask({ content: '', isComplete: false });
 	}
 
@@ -48,7 +54,7 @@ export function TasksList() {
 					type='text'
 					placeholder='Add a new task'
 					name='task'
-                    value={newTask.content}
+					value={newTask.content}
 					onChange={handleNewTask}
 					onInvalid={handleNewInvalidTask}
 					required
@@ -78,7 +84,7 @@ export function TasksList() {
 						key={task.content}
 						content={task.content}
 						OnDeleteTask={deleteTask}
-						isComplete
+						isComplete={task.isComplete}
 					/>
 				);
 			})}
